@@ -42,8 +42,19 @@ def izlusci_anime(id):
 
 
     # Izluscimo vrsto vira:
-    #vir_re1 = r'<span class="dark_text">Source:</span>(.+)+?</div>'
-    #najdba1 = re.search(vir_re1, besedilo, flags=re.DOTALL)
-    #if najdba1 is not None:
-    #    print(najdba1.group(1))
+    vir_re1 = r'<span class="dark_text">Source:</span>(.*?)</div>'
+    najdba1 = re.search(vir_re1, besedilo, flags=re.DOTALL)
+    if najdba1 is not None:
+        s = najdba1.group(1).strip().split("\n")
+        if len(s) == 1:
+            vir = najdba1.group(1).strip()
+        else:
+            vir_re2 = r'<a href="https://myanimelist.net/anime/\d+/\S+>.*?(\w+ ?\w+?).*?</a>'
+            najdba2 = re.search(vir_re2, najdba1.group(1), flags=re.DOTALL)
+            if najdba2 is not None:
+                vir = najdba2.group(1)
+    else:
+        print("Napaka: vir", id)
+
+    print(vir)
     
