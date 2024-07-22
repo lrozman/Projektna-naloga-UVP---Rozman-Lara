@@ -146,7 +146,7 @@ def izlusci_anime(id):
     print(studii)
 
     # Izluscimo povezane vnose (related entries) - to so nadaljevanja, predzgodbe in druge povezane vsebine, obravnavane na myanimelist.net.
-    # Ker se ukvarjam samo z animeji v obliki serij, bom izluscila samo take povezane vnose
+    # Ker se ukvarjam samo z animeji v obliki serij, bom izluscila samo take povezane vnose.
     povezani_vnosi = []
     povezani_re1 = re.compile(
         r'<h2 id="related_entries">Related Entries</h2></div></div><div class="related-entries">(.*?)<div class="widget-content">', 
@@ -162,3 +162,13 @@ def izlusci_anime(id):
         print("Napaka: povezani vnosi", id)
     
     print(povezani_vnosi)
+
+    # Izluscimo 10 najpomemnejsih likov, ki so navedeni na začetni strani posameznega anime-ja.
+    liki = []
+    liki_re = re.compile(
+        r'<h3 class="h3_characters_voice_actors"><a href="https://myanimelist.net/character/(?P<id>\d+)/\S+">(?P<ime>.*?)</a></h3>'
+        )
+    for najdba in liki_re.finditer(besedilo):
+        liki.append((najdba["id"], najdba["ime"]))
+    
+    print(liki, len(liki))
