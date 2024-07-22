@@ -21,10 +21,10 @@ def izlusci_anime(id):
         print("Napaka: lastnosti", id)
     
     else:
-        stevilo_epizod = najdba1["ep"]
+        stevilo_epizod = int(najdba1["ep"])
         status = najdba2["stat"]
         sezona_premiere = najdba3["sez"]
-        leto_premiere = najdba3["leto"]
+        leto_premiere = int(najdba3["leto"])
 
     print(stevilo_epizod, status, sezona_premiere, leto_premiere)
 
@@ -71,7 +71,7 @@ def izlusci_anime(id):
     else:
         print("Napaka: ocena", id)
     
-    members_re = re.compile(r'<span class="dark_text">Members:</span>\s+(\d+,?\d+)')
+    members_re = re.compile(r'<span class="dark_text">Members:</span>\s+(\d+,?\d+,?\d+)')
     najdba = members_re.search(besedilo)
     if najdba is not None:
         members = int(najdba.group(1).replace(",", ""))
@@ -86,4 +86,39 @@ def izlusci_anime(id):
         print("Napaka: favoritizacije", id)
     
     print(ocena, members, favoritizacije)
+
+    # Izluscimo demografiko
+    if besedilo.find('<span class="dark_text">Demographic:</span>') == -1:
+        demografika = "NG"
+    else:
+        demogr_re = re.compile(
+            r'<span class="dark_text">Demographic:</span>\s+'
+            r'<span itemprop="genre" style="display: none">'
+            r'(\w+)</span>'
+        )
+        najdba = demogr_re.search(besedilo)
+        if najdba is not None:
+            demografika = najdba.group(1)
+        else:
+            print("Napaka: demografika", id)
+    
+    print(demografika)
+    
+    # Izluscimo teme
+    teme = []
+    teme_re1 = re.compile(r'<span class="dark_text">Themes?:</span>(.*?)</div>', flags=re.DOTALL)
+    najdba1 = teme_re1.search(besedilo)
+    if najdba1 is not None:
+        teme_re2 = re.compile(r'<span itemprop="genre" style="display: none">(.*?)</span>')
+        for najdba in teme_re2.finditer(najdba1.group(1)):
+            tema = najdba.group(1)
+            teme.append(tema)
+    else:
+        print("Napaka: teme", id)
+    
+    print(teme)
+
+
+
+
     
