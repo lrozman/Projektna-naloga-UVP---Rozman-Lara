@@ -28,19 +28,6 @@ def izlusci_anime(id):
 
     print(stevilo_epizod, status, sezona_premiere, leto_premiere)
 
-    #lastnosti_re = re.compile(
-    #    r'<span class="dark_text">Episodes:</span>.*?(?P<ep>\d+).*?</div>'
-    #    r'<span class="dark_text">Status:</span>.*?(?P<stat>\w+).*?</div>'
-    #    r'<span class="dark_text">Premiered:</span>.*?<a href="https://myanimelist.net/anime/season/\d+/\w+">(?P<sez>\w+) (?P<leto>\d\d\d\d)</a>', 
-    #    flags=re.DOTALL)
-    #l_najdba = lastnosti_re.search(besedilo)
-    #if l_najdba is not None:
-    #    stevilo_epizod = l_najdba["ep"]
-    #    status = l_najdba["stat"]
-    #    sezona_premiere = l_najdba["sez"]
-    #    leto_premiere = l_najdba["leto"]
-
-
     # Izluscimo vrsto vira:
     vir_re1 = r'<span class="dark_text">Source:</span>(.*?)</div>'
     najdba1 = re.search(vir_re1, besedilo, flags=re.DOTALL)
@@ -57,4 +44,46 @@ def izlusci_anime(id):
         print("Napaka: vir", id)
 
     print(vir)
+
+    # Izluscimo dolzino epizode in rating
+    dolzina_re = re.compile(r'<span class="dark_text">Duration:</span>\s+(\d+) min. per ep')
+    najdba = dolzina_re.search(besedilo)
+    if najdba is not None:
+        dolzina_ep_minute = int(najdba.group(1))
+    else:
+        print("Napaka: dolzina", id)
+
+    rating_re = re.compile(r'<span class="dark_text">Rating:</span>\s+(.*?)\s+</div>')
+    najdba = rating_re.search(besedilo)
+    if najdba is not None:
+        rating = najdba.group(1)                                    #V kakšnem formatu želim rating?
+    else:
+        print("Napak: rating", id)
+    
+    print(dolzina_ep_minute, rating)
+    
+
+    # Izluscimo oceno, stevilo uporabnikov (members) in stevilo favorizacij
+    ocena_re = re.compile(r'<span itemprop="ratingValue" class="score-label score-\d">(\d.\d\d)</span>')
+    najdba = ocena_re.search(besedilo)
+    if najdba is not None:
+        ocena = float(najdba.group(1))
+    else:
+        print("Napaka: ocena", id)
+    
+    members_re = re.compile(r'<span class="dark_text">Members:</span>\s+(\d+,?\d+)')
+    najdba = members_re.search(besedilo)
+    if najdba is not None:
+        members = int(najdba.group(1).replace(",", ""))
+    else:
+        print("Napaka: members", id)
+    
+    fave_re = re.compile(r'<span class="dark_text">Favorites:</span>\s+(\d+,?\d+)')
+    najdba = fave_re.search(besedilo)
+    if najdba is not None:
+        favoritizacije = int(najdba.group(1).replace(",", ""))
+    else:
+        print("Napaka: favoritizacije", id)
+    
+    print(ocena, members, favoritizacije)
     
