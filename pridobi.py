@@ -15,6 +15,6 @@ def pridobi_sezone(od, do):
                 print("Napaka", leto, sezona, odgovor.status_code)
                 return
             
-            with open(os.path.join("Neobdelani_podatki", f"anime{leto}{sezona}.html"), "w", encoding="utf-8") as dat:
+            with open(os.path.join("Neobdelani_podatki", "Sezone", f"anime{leto}{sezona}.html"), "w", encoding="utf-8") as dat:
                 dat.write(odgovor.text)
             
