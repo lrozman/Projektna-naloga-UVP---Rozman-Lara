@@ -17,4 +17,21 @@ def pridobi_sezone(od, do):
             
             with open(os.path.join("Neobdelani_podatki", "Sezone", f"anime{leto}{sezona}.html"), "w", encoding="utf-8") as dat:
                 dat.write(odgovor.text)
-               
+
+
+
+def pridobi_anime(id):
+
+    headers = {"User-agent": "Chrome/124.0.6367.202"}
+    
+    url = f"https://myanimelist.net/anime/{id}"
+
+    odgovor = requests.get(url, headers=headers)
+    if odgovor.status_code != 200:
+        print("Napaka", id, odgovor.status_code)
+        return
+    
+    with open(os.path.join("Neobdelani_podatki", "anime", f"anime{id}.html"), "w", encoding="utf-8") as dat:
+        dat.write(odgovor.text)
+    
+    
