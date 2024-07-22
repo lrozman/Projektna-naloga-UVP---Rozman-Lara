@@ -26,7 +26,6 @@ def izlusci_anime(id):
         sezona_premiere = najdba3["sez"]
         leto_premiere = int(najdba3["leto"])
 
-    print(stevilo_epizod, status, sezona_premiere, leto_premiere)
 
     # Izluscimo vrsto vira:
     vir_re1 = r'<span class="dark_text">Source:</span>(.*?)</div>'
@@ -43,9 +42,8 @@ def izlusci_anime(id):
     else:
         print("Napaka: vir", id)
 
-    print(vir)
 
-    # Izluscimo dolzino epizode in rating
+    # Izluscimo povprecno dolzino epizode in oznako
     dolzina_re = re.compile(r'<span class="dark_text">Duration:</span>\s+(\d+) min. per ep')
     najdba = dolzina_re.search(besedilo)
     if najdba is not None:
@@ -53,14 +51,12 @@ def izlusci_anime(id):
     else:
         print("Napaka: dolzina", id)
 
-    rating_re = re.compile(r'<span class="dark_text">Rating:</span>\s+(.*?)\s+</div>')
-    najdba = rating_re.search(besedilo)
+    oznaka_re = re.compile(r'<span class="dark_text">Rating:</span>\s+(.*?)\s+</div>')
+    najdba = oznaka_re.search(besedilo)
     if najdba is not None:
-        rating = najdba.group(1)                                                             #V kakšnem formatu želim rating?
+        oznaka = najdba.group(1)                                                             #V kakšnem formatu želim rating?
     else:
-        print("Napak: rating", id)
-    
-    print(dolzina_ep_minute, rating)
+        print("Napak: oznaka", id)
     
 
     # Izluscimo oceno, stevilo uporabnikov (members) in stevilo favorizacij
@@ -85,7 +81,6 @@ def izlusci_anime(id):
     else:
         print("Napaka: favoritizacije", id)
     
-    print(ocena, members, favoritizacije)
 
     # Izluscimo demografiko
     if besedilo.find('<span class="dark_text">Demographic:</span>') == -1:
@@ -102,7 +97,6 @@ def izlusci_anime(id):
         else:
             print("Napaka: demografika", id)
     
-    print(demografika)
     
     # Izluscimo teme
     teme = []
@@ -116,7 +110,6 @@ def izlusci_anime(id):
     else:
         print("Napaka: teme", id)
     
-    print(teme)
 
     # Izluscimo zanre
     zanri = []
@@ -130,7 +123,6 @@ def izlusci_anime(id):
     else:
         print("Napaka: zanri", id)
     
-    print(zanri)
 
     # Izluscimo animacijski studio
     studii = []
@@ -143,7 +135,6 @@ def izlusci_anime(id):
     else:
         print("Napaka: studii", id)
     
-    print(studii)
 
     # Izluscimo povezane vnose (related entries) - to so nadaljevanja, predzgodbe in druge povezane vsebine, obravnavane na myanimelist.net.
     # Ker se ukvarjam samo z animeji v obliki serij, bom izluscila samo take povezane vnose.
@@ -161,7 +152,6 @@ def izlusci_anime(id):
     else:
         print("Napaka: povezani vnosi", id)
     
-    print(povezani_vnosi)
 
     # Izluscimo 10 najpomemnejsih likov, ki so navedeni na začetni strani posameznega anime-ja.
     liki = []
@@ -171,4 +161,21 @@ def izlusci_anime(id):
     for najdba in liki_re.finditer(besedilo):
         liki.append((najdba["id"], najdba["ime"]))
     
-    print(liki, len(liki))
+
+    return {
+        "število epizod": stevilo_epizod,
+        "status": status,
+        "sezona premiere": sezona_premiere,
+        "leto premiere": leto_premiere,
+        "dolzina epizode v minutah": dolzina_ep_minute,
+        "oznaka": oznaka,
+        "ocena": ocena,
+        "člani": members,
+        "favoritizacije": favoritizacije,
+        "demografika": demografika,                           #ciljna skupina?
+        "teme": teme,
+        "žanri": zanri,
+        "studii": studii,
+        "povezani vnosi": povezani_vnosi,
+        "glavni liki": liki
+    }
