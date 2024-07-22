@@ -56,7 +56,7 @@ def izlusci_anime(id):
     rating_re = re.compile(r'<span class="dark_text">Rating:</span>\s+(.*?)\s+</div>')
     najdba = rating_re.search(besedilo)
     if najdba is not None:
-        rating = najdba.group(1)                                    #V kakšnem formatu želim rating?
+        rating = najdba.group(1)                                                             #V kakšnem formatu želim rating?
     else:
         print("Napak: rating", id)
     
@@ -131,6 +131,19 @@ def izlusci_anime(id):
         print("Napaka: zanri", id)
     
     print(zanri)
+
+    # Izluscimo animacijski studio
+    studii = []
+    studii_re1 = re.compile(r'<span class="dark_text">Studios:</span>(.*?)</div>', flags=re.DOTALL)
+    najdba1 = studii_re1.search(besedilo)
+    if najdba1 is not None:
+        studii_re2 = re.compile(r'<a href="/anime/producer/(?P<id>\d+)/\S*?" title="\S*?">(?P<ime>.*?)</a>')
+        for najdba in studii_re2.finditer(najdba1.group(1)):
+            studii.append((najdba["id"], najdba["ime"]))                               #Ali id-jem studia dodam predpono "s"?
+    else:
+        print("Napaka: studii", id)
+    
+    print(studii)
 
 
 
