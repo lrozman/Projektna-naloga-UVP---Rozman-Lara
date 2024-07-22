@@ -118,6 +118,20 @@ def izlusci_anime(id):
     
     print(teme)
 
+    # Izluscimo zanre
+    zanri = []
+    zanri_re1 = re.compile(r'<span class="dark_text">Genres?:</span>(.*?)</div>', flags=re.DOTALL)
+    najdba1 = zanri_re1.search(besedilo)
+    if najdba1 is not None:
+        zanri_re2 = re.compile(r'<span itemprop="genre" style="display: none">(.*?)</span>')
+        for najdba in zanri_re2.finditer(najdba1.group(1)):
+            zanr = najdba.group(1)
+            zanri.append(zanr)
+    else:
+        print("Napaka: zanri", id)
+    
+    print(zanri)
+
 
 
 
