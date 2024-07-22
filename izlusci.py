@@ -137,7 +137,7 @@ def izlusci_anime(id):
     studii_re1 = re.compile(r'<span class="dark_text">Studios:</span>(.*?)</div>', flags=re.DOTALL)
     najdba1 = studii_re1.search(besedilo)
     if najdba1 is not None:
-        studii_re2 = re.compile(r'<a href="/anime/producer/(?P<id>\d+)/\S*?" title="\S*?">(?P<ime>.*?)</a>')
+        studii_re2 = re.compile(r'<a href="/anime/producer/(?P<id>\d+)/\S*?" title=".*?">(?P<ime>.*?)</a>')
         for najdba in studii_re2.finditer(najdba1.group(1)):
             studii.append((najdba["id"], najdba["ime"]))                               #Ali id-jem studia dodam predpono "s"?
     else:
@@ -145,7 +145,20 @@ def izlusci_anime(id):
     
     print(studii)
 
-
-
-
+    # Izluscimo povezane vnose (related entries) - to so nadaljevanja, predzgodbe in druge povezane vsebine, obravnavane na myanimelist.net.
+    # Ker se ukvarjam samo z animeji v obliki serij, bom izluscila samo take povezane vnose
+    povezani_vnosi = []
+    povezani_re1 = re.compile(
+        r'<h2 id="related_entries">Related Entries</h2></div></div><div class="related-entries">(.*?)<div class="widget-content">', 
+        flags=re.DOTALL)
+    najdba1 = povezani_re1.search(besedilo)
+    if najdba1 is not None:
+        povezani_re2 = re.compile(r'<div class="content">(.*?)</a>', flags=re.DOTALL)
+        for najdba in povezani_re2.finditer(najdba1.group(1)):
+            if najdba.group().find("TV") != -1:
+                najdba3 = re.search(r'<a href="https://myanimelist.net/anime/(?P<id>\d+)/\S*?>\s+(?P<naslov>.*?)\s+</a>', najdba.group())
+                povezani_vnosi.append((najdba3["id"], najdba3["naslov"].strip()))
+    else:
+        print("Napaka: povezani vnosi", id)
     
+    print(povezani_vnosi)
