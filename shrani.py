@@ -71,8 +71,8 @@ def shrani_like(podatki_liki):
     with open("liki.csv", "w") as dat:
         pisatelj = csv.writer(dat)
         pisatelj.writerow(["id_lika", "ime", "favoritizacije_lika"])
-        ids = set()
+        #ids = set()
         for lik in podatki_liki:
-            if lik[0] not in ids:
-                pisatelj.writerow([lik[0], lik[1], lik[2]])
-                ids.add(lik[0])
+            #if lik[0] not in ids:
+            pisatelj.writerow([lik[0], lik[1], lik[2]])
+            #ids.add(lik[0])

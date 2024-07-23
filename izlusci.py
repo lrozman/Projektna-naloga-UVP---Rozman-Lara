@@ -75,7 +75,7 @@ def izlusci_anime(id):
     else:
         print("Napaka: members", id)
     
-    fave_re = re.compile(r'<span class="dark_text">Favorites:</span>\s+(\d+,?\d+)')
+    fave_re = re.compile(r'<span class="dark_text">Favorites:</span>\s+(\d+,?\d*)')
     najdba = fave_re.search(besedilo)
     if najdba is not None:
         favoritizacije = int(najdba.group(1).replace(",", ""))
