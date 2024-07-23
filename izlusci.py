@@ -2,6 +2,7 @@ import re
 import os
 
 def izlusci_anime(id):
+    """Funkcija izlušči podatke o anime-ju iz pridobljene HTML-strani in vrne slovar lastnosti."""
 
     with open(os.path.join("Neobdelani_podatki", "anime", f"anime{id}.html"), "r", encoding="utf-8") as dat:
         besedilo = dat.read()
@@ -153,13 +154,15 @@ def izlusci_anime(id):
         print("Napaka: povezani vnosi", id)
     
 
-    # Izluscimo 10 najpomembnejsih likov, ki so navedeni na začetni strani posameznega anime-ja.
+    # Izluscimo 10 najpomembnejsih likov, ki so navedeni na začetni strani posameznega anime-ja,
+    # tako da za vsakega ustvarimo nabor lastnosti: id lika, ime lika, vloga lika ("Supporting" oz. "Main").
     liki = []
     liki_re = re.compile(
         r'<h3 class="h3_characters_voice_actors"><a href="https://myanimelist.net/character/(?P<id>\d+)/\S+">(?P<ime>.*?)</a></h3>'
+        r'\s+?<div class="spaceit_pad">\s+<small>(?P<vloga>\w+)</small>'
         )
     for najdba in liki_re.finditer(besedilo):
-        liki.append((najdba["id"], najdba["ime"]))
+        liki.append((najdba["id"], najdba["ime"], najdba["vloga"]))                         # Ali dodam še Supporting/Main?
     
 
     return {
@@ -179,3 +182,31 @@ def izlusci_anime(id):
         "povezani vnosi": povezani_vnosi,
         "glavni liki": liki
     }
+
+
+
+
+
+# Še odprto vprašanje, kam gre ta del in kako se bom lotila likov; ali lahko to dodam izluscevanju podatkov o liku zgoraj
+# ali mi bo to laže za analizo.
+def izlusci_lik(id_lika):
+    """Funkcija iz pridobljene HTML-strani vsakega lika izlušči podatke o njem in vrne nabor lastnosti."""
+
+    with open(os.path.join("Neobdelani_podatki", "Liki", f"lik{id_lika}.html"), "r", encoding="utf-8") as dat:
+        besedilo_l = dat.read()
+
+    faves_re = re.compile(r'Member Favorites: (\d+,?\d*)\b')
+    najdba = faves_re.search(besedilo_l)
+    if najdba is not None:
+        lik_faves = int(najdba.group(1).replace(",", ""))
+    else:
+        print("Napaka: lik_faves", id_lika)
+    
+    ime_re = re.compile(r'<title>\s+(.*)\(.*?\s+</title>')
+    najdba = ime_re.search(besedilo_l)
+    if najdba is not None:
+        lik_ime = najdba.group(1).rstrip()
+    else:
+        print("Napaka: ime lika", id_lika)
+    
+    return id_lika, lik_ime, lik_faves

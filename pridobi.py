@@ -33,5 +33,21 @@ def pridobi_anime(id):
     
     with open(os.path.join("Neobdelani_podatki", "anime", f"anime{id}.html"), "w", encoding="utf-8") as dat:
         dat.write(odgovor.text)
+
+
+
+def pridobi_lik(id_lika):
+
+    headers = {"User-agent": "Chrome/124.0.6367.202"}   
+
+    url = f"https://myanimelist.net/character/{id_lika}"
+
+    odgovor = requests.get(url, headers=headers)
+    if odgovor.status_code != 200:
+        print("Napaka: lik", id_lika, odgovor.status_code)
+        return
+    
+    with open(os.path.join("Neobdelani_podatki", "Liki", f"lik{id_lika}.html"), "w", encoding="utf-8") as dat:
+        dat.write(odgovor.text)
     
     
