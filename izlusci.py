@@ -67,6 +67,7 @@ def izlusci_anime(id):
         ocena = float(najdba.group(1))
     else:
         print("Napaka: ocena", id)
+        ocena = "N/A"
     
     members_re = re.compile(r'<span class="dark_text">Members:</span>\s+(\d+,?\d+,?\d+)')
     najdba = members_re.search(besedilo)
