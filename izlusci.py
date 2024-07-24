@@ -181,7 +181,7 @@ def izlusci_anime(id):
         "favoritizacije": favoritizacije,
         "demografika": demografika,                           # Ciljna skupina?
         "teme": teme,
-        "žanri": zanri,
+        "zanri": zanri,
         "studii": studii,
         "povezani vnosi": povezani_vnosi,
         "glavni liki": liki

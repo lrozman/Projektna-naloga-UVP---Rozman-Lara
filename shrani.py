@@ -43,7 +43,7 @@ def shrani(podatki):
                         podatek["favoritizacije"],
                         podatek["demografika"],
                         podatek["teme"],
-                        podatek["žanri"],
+                        podatek["zanri"],
                         podatek["studii"],
                         podatek["povezani vnosi"],
                         podatek["glavni liki"],
@@ -55,16 +55,18 @@ def shrani(podatki):
         pisatelj = csv.writer(dat)
         pisatelj.writerow(["id", "zanr"])
         for podatek in podatki:
-            for zanr in podatek["žanri"]:
-                pisatelj.writerow([podatek["id"], zanr])
+            if len(podatek) > 3:
+                for zanr in podatek["zanri"]:
+                    pisatelj.writerow([podatek["id"], zanr])
     
 
     with open("anime_liki.csv", "w", newline="") as dat:
         pisatelj = csv.writer(dat)
         pisatelj.writerow(["id_lika", "id_anime", "vloga"])
         for podatek in podatki:
-            for lik in podatek["glavni liki"]:
-                pisatelj.writerow([lik[0], podatek["id"], lik[2]])
+            if len(podatek) > 3:
+                for lik in podatek["glavni liki"]:
+                    pisatelj.writerow([lik[0], podatek["id"], lik[2]])
 
 
     # Ali naj izluscim se podatke o likih in jih tudi posebej shranim? In franšize? Ali slednje lahko pogrupiram v ipynb?

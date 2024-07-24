@@ -40,4 +40,4 @@ for anime in vsi_anime:
     #        ids_likov.add(id_lika)
 
 shrani.shrani(vsi_podatki)
-shrani.shrani(vsi_liki)
+# shrani.shrani(vsi_liki)
