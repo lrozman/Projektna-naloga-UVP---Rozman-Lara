@@ -172,6 +172,7 @@ def izlusci_anime(id):
         "status": status,
         "sezona premiere": sezona_premiere,
         "leto premiere": leto_premiere,
+        "vir": vir,
         "dolzina epizode v minutah": dolzina_ep_minute,
         "oznaka": oznaka,
         "ocena": ocena,
