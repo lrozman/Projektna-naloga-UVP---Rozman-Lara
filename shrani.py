@@ -60,7 +60,7 @@ def shrani(podatki):
         pisatelj = csv.writer(dat)
         pisatelj.writerow(["id_lika", "id_anime", "vloga"])
         for podatek in podatki:
-            for lik in podatki["glavni liki"]:
+            for lik in podatek["glavni liki"]:
                 pisatelj.writerow([lik[0], podatek["id"], lik[2]])
 
 
