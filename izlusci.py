@@ -45,12 +45,13 @@ def izlusci_anime(id):
 
 
     # Izluscimo povprecno dolzino epizode in oznako.
-    dolzina_re = re.compile(r'<span class="dark_text">Duration:</span>\s+(\d+) min.')
+    dolzina_re = re.compile(r'<span class="dark_text">Duration:</span>\s+(\d+) min')
     najdba = dolzina_re.search(besedilo)
     if najdba is not None:
         dolzina_ep_minute = int(najdba.group(1))
     else:
         print("Napaka: dolzina", id)
+        dolzina_ep_minute = "Unknown"
 
     oznaka_re = re.compile(r'<span class="dark_text">Rating:</span>\s+(.*?)\s+</div>')
     najdba = oznaka_re.search(besedilo)
