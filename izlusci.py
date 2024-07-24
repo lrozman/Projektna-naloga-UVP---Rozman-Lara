@@ -20,6 +20,7 @@ def izlusci_anime(id):
 
     if najdba1 is None or najdba2 is None or najdba3 is None:
         print("Napaka: lastnosti", id)
+        return {}
     
     else:
         stevilo_epizod = int(najdba1["ep"])

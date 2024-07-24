@@ -26,28 +26,29 @@ def shrani(podatki):
             ]
         )
         for podatek in podatki:
-            pisatelj.writerow(
-                [
-                    podatek["id"],
-                    podatek["naslov"],
-                    podatek["število epizod"],
-                    podatek["status"],
-                    podatek["sezona premiere"],
-                    podatek["leto premiere"],
-                    podatek["vir"],
-                    podatek["dolzina epizode v minutah"],
-                    podatek["oznaka"],
-                    podatek["ocena"],
-                    podatek["člani"],
-                    podatek["favoritizacije"],
-                    podatek["demografika"],
-                    podatek["teme"],
-                    podatek["žanri"],
-                    podatek["studii"],
-                    podatek["povezani vnosi"],
-                    podatek["glavni liki"],
-                ]
-            )
+            if podatek:
+                pisatelj.writerow(
+                    [
+                        podatek["id"],
+                        podatek["naslov"],
+                        podatek["število epizod"],
+                        podatek["status"],
+                        podatek["sezona premiere"],
+                        podatek["leto premiere"],
+                        podatek["vir"],
+                        podatek["dolzina epizode v minutah"],
+                        podatek["oznaka"],
+                        podatek["ocena"],
+                        podatek["člani"],
+                        podatek["favoritizacije"],
+                        podatek["demografika"],
+                        podatek["teme"],
+                        podatek["žanri"],
+                        podatek["studii"],
+                        podatek["povezani vnosi"],
+                        podatek["glavni liki"],
+                    ]
+                )
     
 
     with open("anime_zanri.csv", "w") as dat:

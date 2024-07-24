@@ -4,7 +4,7 @@ import izlusci
 import shrani
 
 #od, do = 1974, 2024
-od, do = 2010, 2024
+od, do = 1974, 2024
 sezone = ["winter", "spring", "summer", "fall"]
 
 #pridobi.pridobi_sezone(od, do)
