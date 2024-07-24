@@ -69,7 +69,7 @@ def izlusci_anime(id):
         print("Napaka: ocena", id)
         ocena = "N/A"
     
-    members_re = re.compile(r'<span class="dark_text">Members:</span>\s+(\d+,?\d+,?\d+)')
+    members_re = re.compile(r'<span class="dark_text">Members:</span>\s+(\d+,?\d*,?\d*)')
     najdba = members_re.search(besedilo)
     if najdba is not None:
         members = int(najdba.group(1).replace(",", ""))
