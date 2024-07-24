@@ -45,4 +45,4 @@ for anime in vsi_anime:
                 
 
 shrani.shrani(vsi_podatki)
-shrani.shrani(vsi_liki)
+shrani.shrani_like(vsi_liki)
