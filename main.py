@@ -41,7 +41,8 @@ for anime in vsi_anime:
                     podatki_lik = izlusci.izlusci_lik(id_lika)
                 except FileNotFoundError:
                     continue
-                vsi_liki.append(podatki_lik)
+                if podatki_lik:
+                    vsi_liki.append(podatki_lik)
                 
 
 shrani.shrani(vsi_podatki)

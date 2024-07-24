@@ -73,7 +73,7 @@ def shrani(podatki):
 
 # Še odprto vprašanje, kam naj dam podatke o likih in kako naj jih obdelujem.
 def shrani_like(podatki_liki):
-    with open("liki.csv", "w") as dat:
+    with open("liki.csv", "w", newline="") as dat:
         pisatelj = csv.writer(dat)
         pisatelj.writerow(["id_lika", "ime", "favoritizacije_lika"])
         #ids = set()
