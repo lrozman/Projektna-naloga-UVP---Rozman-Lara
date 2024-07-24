@@ -31,13 +31,18 @@ for anime in vsi_anime:
     podatki["id"] = id
     vsi_podatki.append(podatki)
 
-    #for lik in podatki["glavni liki"]:
-    #    id_lika = lik[0]
-    #    if id_lika not in ids_likov:
-    #        if pridobi.pridobi_lik(id_lika) is not None:
-    #            podatki_lik = izlusci.izlusci_lik(id_lika)
-    #            vsi_liki.append(podatki_lik)
-    #        ids_likov.add(id_lika)
+    if len(podatki) > 3:
+        for lik in podatki["glavni liki"]:
+            id_lika = lik[0]
+            if id_lika not in ids_likov:
+                ids_likov.add(id_lika)
+                pridobi.pridobi_lik(id_lika)
+                try:
+                    podatki_lik = izlusci.izlusci_lik(id_lika)
+                except FileNotFoundError:
+                    continue
+                vsi_liki.append(podatki_lik)
+                
 
 shrani.shrani(vsi_podatki)
-# shrani.shrani(vsi_liki)
+shrani.shrani(vsi_liki)
