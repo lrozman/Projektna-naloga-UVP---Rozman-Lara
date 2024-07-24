@@ -1,7 +1,7 @@
 import csv
 
 def shrani(podatki):
-    with open("anime.csv", "w", encoding="utf-8") as dat:
+    with open("anime.csv", "w", encoding="utf-8", newline="") as dat:
         pisatelj = csv.writer(dat)
         pisatelj.writerow(
             [
@@ -51,7 +51,7 @@ def shrani(podatki):
                 )
     
 
-    with open("anime_zanri.csv", "w") as dat:
+    with open("anime_zanri.csv", "w", newline="") as dat:
         pisatelj = csv.writer(dat)
         pisatelj.writerow(["id", "zanr"])
         for podatek in podatki:
@@ -59,7 +59,7 @@ def shrani(podatki):
                 pisatelj.writerow([podatek["id"], zanr])
     
 
-    with open("anime_liki.csv", "w") as dat:
+    with open("anime_liki.csv", "w", newline="") as dat:
         pisatelj = csv.writer(dat)
         pisatelj.writerow(["id_lika", "id_anime", "vloga"])
         for podatek in podatki:
