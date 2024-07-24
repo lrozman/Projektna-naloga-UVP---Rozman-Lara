@@ -20,11 +20,13 @@ def pridobi_sezone(od, do):
 
 
 
-def pridobi_anime(id):
+def pridobi_anime(id, naslov):
 
     headers = {"User-agent": "Chrome/124.0.6367.202"}
+
+    naslov = naslov.replace(" ", "_")
     
-    url = f"https://myanimelist.net/anime/{id}"
+    url = f"https://myanimelist.net/anime/{id}/{naslov}"
 
     odgovor = requests.get(url, headers=headers)
     if odgovor.status_code != 200:
@@ -38,7 +40,7 @@ def pridobi_anime(id):
 
 def pridobi_lik(id_lika):
 
-    headers = {"User-agent": "Chrome/124.0.6367.202"}   
+    headers = {"User-agent": "Chrome/124.0.6367.202"}
 
     url = f"https://myanimelist.net/character/{id_lika}"
 
