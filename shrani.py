@@ -26,7 +26,7 @@ def shrani(podatki):
             ]
         )
         for podatek in podatki:
-            if podatek:
+            if len(podatek) > 3: 
                 pisatelj.writerow(
                     [
                         podatek["id"],
