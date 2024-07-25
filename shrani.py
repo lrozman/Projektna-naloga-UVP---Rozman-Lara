@@ -81,3 +81,9 @@ def shrani_like(podatki_liki):
             #if lik[0] not in ids:
             pisatelj.writerow([lik[0], lik[1], lik[2]])
             #ids.add(lik[0])
+
+
+#def shrani_vse_anime(vsi_anime):
+#    with open("vsi_anime.csv", "w", encoding="utf-8", newline="") as dat:
+#        pisatelj = csv.writer(dat)
+#        pisatelj.writerow()

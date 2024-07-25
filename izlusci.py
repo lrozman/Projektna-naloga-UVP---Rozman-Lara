@@ -214,3 +214,110 @@ def izlusci_lik(id_lika):
         print("Napaka: ime lika", id_lika)
     
     return id_lika, lik_ime, lik_faves
+
+
+
+
+def izlusci_iz_sezone(leto, sezona):
+    """Funkcija iz strani o sezoni pridobi nekaj osnovnih podatkov o anime-jih in jih vrne v obliki seznama slovarjev."""
+
+    with open(os.path.join("Neobdelani_podatki", "Sezone", f"anime{leto}{sezona}.html"), "r", encoding="utf-8") as dat:
+        besedilo_vse = dat.read()
+    
+    vzorec_anime = re.compile(
+        r'<h2 class="h2_anime_title"><a href="https://myanimelist.net/anime/(?P<id>\d+).+?class="link-title">(?P<naslov>.+?)</a></h2></div>(?P<ostalo>.*?)<div class="title"><div class="title-text">', flags=re.DOTALL)
+    podatki_iz_sezone = []
+    najdba1 = vzorec_anime.search(besedilo_vse)
+    if najdba1 is not None:
+        for najdba in vzorec_anime.finditer(besedilo_vse):
+            podatek = {}
+            podatek["id"] = najdba["id"]
+            podatek["naslov"] = najdba["naslov"]
+            podatek["leto premiere"] = leto
+            podatek["sezona premiere"] = sezona
+
+
+            vsebina = najdba["ostalo"]
+
+
+            members_re = re.compile(r'class="js-members">(\d+)</span>')
+            najdba = members_re.search(vsebina)
+            if najdba is not None:
+                members = int(najdba.group(1))
+            else:
+                print("Napaka: members2", leto, sezona)
+                members = "NG"
+            podatek["člani"] = members
+
+
+            score_re = re.compile(r'class="js-score">(\d\.\d\d)</span>')
+            najdba = score_re.search(vsebina)
+            if najdba is not None:
+                ocena = round(float(najdba.group(1)), 2)
+            else:
+                print("Napaka: ocena2", leto, sezona)
+                ocena = "N/A"
+            podatek["ocena"] = ocena
+
+
+            info_re = re.compile(r'<div class="info">.*?<span>(?P<eps>\d+) ep.*?<span>(?P<min>\d+) min', flags=re.DOTALL)
+            najdba = info_re.search(vsebina)
+            if najdba is not None:
+                st_epizod = int(najdba["eps"])
+                dolzina_epizode = int(najdba["min"])
+            else:
+                print("Napaka: info2", leto, sezona)
+                st_epizod = "NG"
+                dolzina_epizode = "NG"
+            podatek["stevilo epizod"] = st_epizod
+            podatek["dolzina epizode v minutah"] = dolzina_epizode
+
+
+
+            uni_vzorec_re = re.compile(r'<a href.*?">(.*?)</a>') # Vzorec, ki bo večkrat uporabljen
+
+            studii = []
+            studii_re1 = re.compile(r'<span class="caption">Studio</span>(.*?)</div>', flags=re.DOTALL)
+            najdba1 = studii_re1.search(vsebina)
+            if najdba1 is not None:
+                for najdba in uni_vzorec_re.finditer(najdba1.group(1)):
+                    studii.append(najdba.group(1))
+            else:
+                print("Napaka: studii2", leto, sezona)
+            podatek["studii"] = studii
+
+            vir = ""
+            vir_re1 = re.compile(r'<span class="caption">Source</span>(.*?)">(?P<vir>.*?)</span>')
+            najdba1 = vir_re1.search(vsebina)
+            if najdba1 is not None:
+                vir = najdba1["vir"]
+            else:
+                print("Napaka: vir2", leto, sezona)
+            podatek["vir"] = vir
+
+            teme = []
+            teme_re1 = re.compile(r'<span class="caption">Themes?</span>(.*?)</div>', flags=re.DOTALL)
+            najdba1 = teme_re1.search(vsebina)
+            if najdba1 is not None:
+                for najdba in uni_vzorec_re.finditer(najdba1.group(1)):
+                    teme.append(najdba.group(1))
+            else:
+                print("Napaka: teme2", leto, sezona)
+            podatek["teme"] = teme
+
+            zanri = []
+            zanri_re1 = re.compile(r'<div class="genres js-genre"(.*?)</div>', flags=re.DOTALL)           
+            najdba1 = zanri_re1.search(vsebina)
+            if najdba1 is not None:
+                for najdba in uni_vzorec_re.finditer(najdba1.group(1)):
+                    zanri.append(najdba.group(1))
+            else:
+                print("Napaka: zanri2", leto, sezona)
+            podatek["zanri"] = zanri
+
+            podatki_iz_sezone.append(podatek)
+
+    else:
+        print("Napaka: iz sezone", leto, sezona)
+    
+    return podatki_iz_sezone
