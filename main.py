@@ -3,12 +3,10 @@ import poisci_anime
 import izlusci
 import shrani
 
-#od, do = 1974, 2024
 od, do = 1974, 2024
 sezone = ["winter", "spring", "summer", "fall"]
 
-#pridobi.pridobi_sezone(od, do)
-# ^Zakomentirano, ker imam že brez težav pridobljene, da ni vsakič še tega delal.
+pridobi.pridobi_sezone(od, do)
 
 vsi_anime = []
 vsi_iz_sezone = []

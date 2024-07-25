@@ -69,18 +69,16 @@ def shrani(podatki):
                     pisatelj.writerow([lik[0], podatek["id"], lik[2]])
 
 
-    # Ali naj izluscim se podatke o likih in jih tudi posebej shranim? In franšize? Ali slednje lahko pogrupiram v ipynb?
+    # Ali posebej shranim še franšize ali jih lahko pogrupiram v ipynb?
 
 # Še odprto vprašanje, kam naj dam podatke o likih in kako naj jih obdelujem.
 def shrani_like(podatki_liki):
     with open("liki.csv", "w", newline="") as dat:
         pisatelj = csv.writer(dat)
         pisatelj.writerow(["id_lika", "ime", "favoritizacije_lika"])
-        #ids = set()
         for lik in podatki_liki:
-            #if lik[0] not in ids:
             pisatelj.writerow([lik[0], lik[1], lik[2]])
-            #ids.add(lik[0])
+
 
 
 def shrani_vse_anime(vsi_anime):
