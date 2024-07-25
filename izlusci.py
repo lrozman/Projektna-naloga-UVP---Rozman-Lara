@@ -295,6 +295,15 @@ def izlusci_iz_sezone(leto, sezona):
                 print("Napaka: vir2", leto, sezona)
             podatek["vir"] = vir
 
+            demografika_re = re.compile(r'<span class="caption">Demographic</span>.*?<a href.*?">(\w+)</a>')
+            najdba = demografika_re.search(vsebina)
+            if najdba is not None:
+                demografika = najdba.group(1)
+            else:
+                print("Napaka: demo2", leto, sezona)
+                demografika = "NG"
+            podatek["demografika"] = demografika
+
             teme = []
             teme_re1 = re.compile(r'<span class="caption">Themes?</span>(.*?)</div>', flags=re.DOTALL)
             najdba1 = teme_re1.search(vsebina)

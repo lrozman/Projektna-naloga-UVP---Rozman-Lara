@@ -11,10 +11,14 @@ sezone = ["winter", "spring", "summer", "fall"]
 # ^Zakomentirano, ker imam že brez težav pridobljene, da ni vsakič še tega delal.
 
 vsi_anime = []
+vsi_iz_sezone = []
 for leto in range(od, do):
     for sezona in sezone:
         animeji = poisci_anime.poisci(leto, sezona)
         vsi_anime.extend(animeji)
+
+        podatki = izlusci.izlusci_iz_sezone(leto, sezona)
+        vsi_iz_sezone.extend(podatki)
 
 vsi_podatki = []
 vsi_liki = []
@@ -47,3 +51,4 @@ for anime in vsi_anime:
 
 shrani.shrani(vsi_podatki)
 shrani.shrani_like(vsi_liki)
+shrani.shrani_vse_anime(vsi_iz_sezone)

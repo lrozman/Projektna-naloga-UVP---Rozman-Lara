@@ -83,7 +83,41 @@ def shrani_like(podatki_liki):
             #ids.add(lik[0])
 
 
-#def shrani_vse_anime(vsi_anime):
-#    with open("vsi_anime.csv", "w", encoding="utf-8", newline="") as dat:
-#        pisatelj = csv.writer(dat)
-#        pisatelj.writerow()
+def shrani_vse_anime(vsi_anime):
+    with open("vsi_anime.csv", "w", encoding="utf-8", newline="") as dat:
+        pisatelj = csv.writer(dat)
+        pisatelj.writerow(
+            [
+                "id",
+                "naslov",
+                "število epizod",
+                "sezona premiere",
+                "leto premiere",
+                "vir",
+                "dolzina epizode v minutah",
+                "ocena",
+                "člani",
+                "demografika",
+                "teme",
+                "žanri",
+                "studii",
+            ]
+        )
+        for podatek in vsi_anime:
+            pisatelj.writerow(
+                [
+                    podatek["id"],
+                    podatek["naslov"],
+                    podatek["stevilo epizod"],
+                    podatek["sezona premiere"],
+                    podatek["leto premiere"],
+                    podatek["vir"],
+                    podatek["dolzina epizode v minutah"],
+                    podatek["ocena"],
+                    podatek["člani"],
+                    podatek["demografika"],
+                    podatek["teme"],
+                    podatek["zanri"],
+                    podatek["studii"],
+                ]
+            )
