@@ -4,6 +4,7 @@ import izlusci
 import shrani
 
 od, do = 1974, 2024
+# Nisem dala "do vključno" (+1)
 sezone = ["winter", "spring", "summer", "fall"]
 
 pridobi.pridobi_sezone(od, do)
