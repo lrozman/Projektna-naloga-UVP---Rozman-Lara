@@ -6,7 +6,7 @@ import shrani
 od, do = 1974, 2024
 sezone = ["winter", "spring", "summer", "fall"]
 
-#pridobi.pridobi_sezone(od, do)
+pridobi.pridobi_sezone(od, do)
 
 vsi_anime = []
 vsi_iz_sezone = []
@@ -15,8 +15,8 @@ for leto in range(od, do+1):
         animeji = poisci_anime.poisci(leto, sezona)
         vsi_anime.extend(animeji)
 
-        #podatki = izlusci.izlusci_iz_sezone(leto, sezona)
-        #vsi_iz_sezone.extend(podatki)
+        podatki = izlusci.izlusci_iz_sezone(leto, sezona)
+        vsi_iz_sezone.extend(podatki)
 
 vsi_podatki = []
 vsi_liki = []
@@ -62,11 +62,9 @@ for anime in vsi_anime:
         
         if id not in ids_related: # Če je id že bil related, dvomim, da se torej ne bi našel povezan vnos, ki je ključ v slovarju. Ker še ni bil, prej funkcija ni našla ključa.
             slovar_related[id] = mnozica_id
-        # Upamo na najboljše.
-        
-          
+         
 
 shrani.shrani(vsi_podatki)
 shrani.shrani_like(vsi_liki)
-#shrani.shrani_vse_anime(vsi_iz_sezone)
+shrani.shrani_vse_anime(vsi_iz_sezone)
 shrani.shrani_fransize(slovar_related)
