@@ -119,3 +119,12 @@ def shrani_vse_anime(vsi_anime):
             if len(podatek) > 3:
                 for zanr in podatek["zanri"]:
                     pisatelj.writerow([podatek["id"], zanr])
+
+
+def shrani_fransize(fransize):
+    with open("anime_fransize.csv", "w", newline="") as dat:
+        pisatelj = csv.writer(dat)
+        pisatelj.writerow(["id_fransize", "id_anime"])
+        for fransiza, mnozica in fransize.items():
+            for el in mnozica:
+                pisatelj.writerow([fransiza, el])
