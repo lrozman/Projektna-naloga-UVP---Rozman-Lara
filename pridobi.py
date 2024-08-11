@@ -6,7 +6,7 @@ def pridobi_sezone(od, do):
 
     headers = {"User-agent": "Chrome/124.0.6367.202"}
     
-    for leto in range(od, do):
+    for leto in range(od, do+1):
         for sezona in sezone:
             url = f"https://myanimelist.net/anime/season/{leto}/{sezona}"
 

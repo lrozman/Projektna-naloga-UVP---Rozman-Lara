@@ -223,13 +223,16 @@ def izlusci_iz_sezone(leto, sezona):
 
     with open(os.path.join("Neobdelani_podatki", "Sezone", f"anime{leto}{sezona}.html"), "r", encoding="utf-8") as dat:
         besedilo_vse = dat.read()
-    
+
+    vzorec_za_iskano = r'<div class="anime-header">TV \(New\)</div>(.*?)<div class="anime-header">'
+    iskana_vsebina = (re.search(vzorec_za_iskano, besedilo_vse, flags=re.DOTALL)).group(1)
+
     vzorec_anime = re.compile(
         r'<h2 class="h2_anime_title"><a href="https://myanimelist.net/anime/(?P<id>\d+).+?class="link-title">(?P<naslov>.+?)</a></h2></div>(?P<ostalo>.*?)<div class="title"><div class="title-text">', flags=re.DOTALL)
     podatki_iz_sezone = []
-    najdba1 = vzorec_anime.search(besedilo_vse)
+    najdba1 = vzorec_anime.search(iskana_vsebina)
     if najdba1 is not None:
-        for najdba in vzorec_anime.finditer(besedilo_vse):
+        for najdba in vzorec_anime.finditer(iskana_vsebina):
             podatek = {}
             podatek["id"] = najdba["id"]
             podatek["naslov"] = najdba["naslov"]

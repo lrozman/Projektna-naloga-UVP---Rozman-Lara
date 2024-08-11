@@ -4,14 +4,13 @@ import izlusci
 import shrani
 
 od, do = 1974, 2024
-# Nisem dala "do vključno" (+1)
 sezone = ["winter", "spring", "summer", "fall"]
 
 pridobi.pridobi_sezone(od, do)
 
 vsi_anime = []
 vsi_iz_sezone = []
-for leto in range(od, do):
+for leto in range(od, do+1):
     for sezona in sezone:
         animeji = poisci_anime.poisci(leto, sezona)
         vsi_anime.extend(animeji)
