@@ -51,14 +51,6 @@ def shrani(podatki):
                 )
     
 
-    with open("anime_zanri.csv", "w", newline="") as dat:
-        pisatelj = csv.writer(dat)
-        pisatelj.writerow(["id", "zanr"])
-        for podatek in podatki:
-            if len(podatek) > 3:
-                for zanr in podatek["zanri"]:
-                    pisatelj.writerow([podatek["id"], zanr])
-    
 
     with open("anime_liki.csv", "w", newline="") as dat:
         pisatelj = csv.writer(dat)
@@ -119,3 +111,11 @@ def shrani_vse_anime(vsi_anime):
                     podatek["studii"],
                 ]
             )
+    
+    with open("anime_zanri.csv", "w", newline="") as dat:
+        pisatelj = csv.writer(dat)
+        pisatelj.writerow(["id", "zanr"])
+        for podatek in vsi_anime:
+            if len(podatek) > 3:
+                for zanr in podatek["zanri"]:
+                    pisatelj.writerow([podatek["id"], zanr])

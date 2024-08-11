@@ -9,7 +9,7 @@ def poisci(leto, sezona):
 
         # Celoten HTML vključuje tudi filme, ONA, OVA in posebne epizode, ki so prav tako vrednotene na myanimelist.net.
         # Nas zanimajo le novo prihajajoče anime serije, ki se vedno nahajajo v prvem razdelku strani posamezne sezone. 
-        vzorec_za_iskano = r'<div class="anime-header">TV \(New\)</div>(.*)<div class="anime-header">TV \(Continuing\)</div>'
+        vzorec_za_iskano = r'<div class="anime-header">TV \(New\)</div>(.*?)<div class="anime-header">'
         iskana_vsebina = (re.search(vzorec_za_iskano, vsebina, flags=re.DOTALL)).group(1)
 
         vzorec_anime = r'<h2 class="h2_anime_title"><a href="https://myanimelist.net/anime/(?P<id>\d+).+class="link-title">(?P<naslov>.+)</a></h2></div>'
