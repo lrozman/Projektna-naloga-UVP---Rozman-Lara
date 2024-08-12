@@ -49,6 +49,8 @@ for anime in vsi_anime:
                     vsi_liki.append(podatki_lik)
     
     # Katera podatkovna struktura bi bila najbolj primerna za to?
+
+    # POPRAVI! JE NAROBE. Imaš še get, presek, vse živo. Popravi jutri!
         mnozica_id = set()
         for rel_id, related in podatki["povezani vnosi"]:
             mnozica_id.add(rel_id)
