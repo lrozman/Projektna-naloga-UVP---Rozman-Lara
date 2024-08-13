@@ -49,8 +49,6 @@ for anime in vsi_anime:
                     vsi_liki.append(podatki_lik)
     
     # Katera podatkovna struktura bi bila najbolj primerna za to?
-
-    # POPRAVI! JE NAROBE. Imaš še get, presek, vse živo. Popravi jutri!
         mnozica_id = set()
         for rel_id, related in podatki["povezani vnosi"]:
             mnozica_id.add(rel_id)
@@ -58,8 +56,8 @@ for anime in vsi_anime:
 
         for rel_id, related in podatki["povezani vnosi"]:
             if rel_id in slovar_related:
-                slovar_related[rel_id].union(mnozica_id)  # Torej je ključ tudi v vrednostih
-                ids_related.union(mnozica_id)
+                slovar_related[rel_id].update(mnozica_id)  # Torej je ključ tudi v vrednostih
+                ids_related.update(mnozica_id)
                 break  # Predvidevam, da so povezani vnosi urejeni bodisi obojestransko bodisi imajo novejše serije za povezane vnose vse svoje predhodnike.
         
         if id not in ids_related: # Če je id že bil related, dvomim, da se torej ne bi našel povezan vnos, ki je ključ v slovarju. Ker še ni bil, prej funkcija ni našla ključa.
