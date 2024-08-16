@@ -36,6 +36,7 @@ for anime in vsi_anime:
     vsi_podatki.append(podatki)
 
     if len(podatki) > 3:
+    # Podatki za CSV-tabele o likih
         for lik in podatki["glavni liki"]:
             id_lika = lik[0]
             if id_lika not in ids_likov:
@@ -48,7 +49,7 @@ for anime in vsi_anime:
                 if podatki_lik:
                     vsi_liki.append(podatki_lik)
     
-    # Katera podatkovna struktura bi bila najbolj primerna za to?
+    # Podatki za anime_fransize.csv
         mnozica_id = set()
         for rel_id, related in podatki["povezani vnosi"]:
             mnozica_id.add(rel_id)

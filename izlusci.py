@@ -57,7 +57,7 @@ def izlusci_anime(id):
     oznaka_re = re.compile(r'<span class="dark_text">Rating:</span>\s+(.*?)\s+</div>')
     najdba = oznaka_re.search(besedilo)
     if najdba is not None:
-        oznaka = najdba.group(1)                                                             # V kakšnem formatu želim rating?
+        oznaka = najdba.group(1)
     else:
         print("Napak: oznaka", id)
     
@@ -135,7 +135,7 @@ def izlusci_anime(id):
     if najdba1 is not None:
         studii_re2 = re.compile(r'<a href="/anime/producer/(?P<id>\d+)/\S*?" title=".*?">(?P<ime>.*?)</a>')
         for najdba in studii_re2.finditer(najdba1.group(1)):
-            studii.append((najdba["id"], najdba["ime"]))                               # Ali id-jem studia dodam predpono "s"?
+            studii.append((najdba["id"], najdba["ime"]))
     else:
         print("Napaka: studii", id)
     
@@ -165,7 +165,7 @@ def izlusci_anime(id):
         r'\s+?<div class="spaceit_pad">\s+<small>(?P<vloga>\w+)</small>'
         )
     for najdba in liki_re.finditer(besedilo):
-        liki.append((najdba["id"], najdba["ime"], najdba["vloga"]))                         # Ali dodam še Supporting/Main?
+        liki.append((najdba["id"], najdba["ime"], najdba["vloga"]))
     
 
     return {
@@ -179,7 +179,7 @@ def izlusci_anime(id):
         "ocena": ocena,
         "člani": members,
         "favoritizacije": favoritizacije,
-        "demografika": demografika,                           # Ciljna skupina?
+        "demografika": demografika,
         "teme": teme,
         "zanri": zanri,
         "studii": studii,
@@ -190,9 +190,6 @@ def izlusci_anime(id):
 
 
 
-
-# Še odprto vprašanje, kam gre ta del in kako se bom lotila likov; ali lahko to dodam izluscevanju podatkov o liku zgoraj
-# ali mi bo to laže za analizo.
 def izlusci_lik(id_lika):
     """Funkcija iz pridobljene HTML-strani vsakega lika izlušči podatke o njem in vrne nabor lastnosti."""
 

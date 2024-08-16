@@ -61,9 +61,7 @@ def shrani(podatki):
                     pisatelj.writerow([lik[0], podatek["id"], lik[2]])
 
 
-    # Ali posebej shranim še franšize ali jih lahko pogrupiram v ipynb?
 
-# Še odprto vprašanje, kam naj dam podatke o likih in kako naj jih obdelujem.
 def shrani_like(podatki_liki):
     with open("liki.csv", "w", newline="") as dat:
         pisatelj = csv.writer(dat)
