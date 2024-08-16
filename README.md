@@ -15,6 +15,8 @@ Da pa bi lahko kljub vsemu naredila analizo na reprezentativnem vzorcu, sem napi
 da sem večino želenih podatkov o anime-jih izluščila iz že pridobljenih spletnih strani vseh sezon. Tako sem dobila 
 tabelo *vsi_anime.csv*, ki šteje 5507 vnosov. S to tabelo sem naredila večino analize, ki je izvedena in predstavljena v datoteki *analiza.ipynb*.
 
+HTML-datoteke niso vključene v ta repozitorij.
+
 ## Navodila za uporabo
 
 Najprej so za delovanje programa potrebni naslednji paketi: *requests*, *os*, *re* in *csv*.
